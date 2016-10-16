@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+    <head>
+    <link href="css/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        
+        <div ng-controller="myControl as crt">
+        
+            
+            <div ng-show="{{crt.unitsList.length>0}}">
+<!--
+                <h1><span class="label label-success"> 
+                    Database ready ({{crt.unitsList.length}} Units)
+                    </span>
+-->
+                <form>
+                 <label for="titleInput">Search input</label>
+                 <input  id="titleInput" ng-model="crt.searchTxt">
+                </form>
+            <h1> {{crt.searchTxt}} </h1>
+
+                    
+                </h1>
+            </div>
+            
+            
+            
+          <div ng-repeat="unit in crt.unitsList | orderBy:'-length' | filter: {location:crt.searchTxt}" class="jumbotron" ng-click="crt.logUnit(unit.name.fullname)">
+              
+              <h1> <span class="label label-success">{{unit.name.nickname | uppercase}} {{unit.name.fullname| uppercase}} </span></h1>
+              
+              <h2> nickname: <span class="label label-primary">{{unit.name.nickname}}</span>
+              </h2>
+              
+              <h2> fullname: <span class="label label-primary">{{unit.name.fullname }}</span>
+              </h2>
+              
+              <h2> Length: <span class="label label-primary">{{unit.length | number: 2}}</span>
+              </h2>
+              
+              <h2> Location: <span class="label label-primary">{{unit.location }}</span>
+              </h2>
+              
+              <h2> ISBIG: <span class="label label-primary">{{crt.processLength(unit.length) }}</span>
+              </h2>
+              
+          </div>
+    </div>
+        
+    <script src="lib/angular.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/component.js"></script>
+    </body>
+</html>

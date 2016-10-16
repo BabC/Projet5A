@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="loginApp" ng-controller="loginCtrl">
+<head>
+    <meta charset="utf-8">
+    <title>Login page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+        <link href="login.css" rel="stylesheet">
+    <!--<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">-->
+    
+</head>
+<body>
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="text-center">Bienvenue</h1>
+        </div>
+         <div class="modal-body">
+             <div class="form-group">
+                 <input type="text" class="form-control input-lg" placeholder="Username" ng-model="user.login"/>
+             </div>
+
+             <div class="form-group">
+                 <input type="password" class="form-control input-lg" placeholder="Password" ng-model="user.pwd"/>
+             </div>
+
+             <div class="form-group">
+                 <input type="submit" class="btn btn-block btn-lg btn-primary" value="Login" ng-click="logAuthObject(user)"/>
+             </div>
+         </div>
+    </div>
+ </div>
+ <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="text-center">Login : {{user.login}} </h1>
+      <h2 class="text-center"> Pwd : {{user.pwd}} </h2>
+    </div>
+  </div>
+   
+ </div>
+
+ <script src="lib/jquery-1.11.1.min.js"></script>
+ <script src="lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+ <script src="lib/angular.min.js"></script>
+  <script src="js/Services/AuthServices-s2.2.js"></script>
+ <script src="js/Application/LoginApp-s1.2.js"></script>
+ <script src="js/Controllers/LoginController-s1.1.js"></script>
+</body>
+</html>

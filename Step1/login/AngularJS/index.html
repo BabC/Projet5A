@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+	<head>
+	<link href="css/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<div ng-controller="myControl as crt" ng-click="crt.addView()">
+			
+			<h1><span class="label label-success">{{crt.myUser.name.surname + ' ' + crt.myUser.name.lastname}} </span></h1>
+			<h1><span class="label label-primary">AGE: {{crt.myUser.age}} </span></h1>
+			<h1><span class="label label-primary">View: {{crt.myUser.view}} </span></h1>
+			
+			
+			
+		</div>
+		
+		<script src="lib/angular.min.js"></script>
+		<script src="js/data.js"></script>
+		<script src="js/component.js"></script>
+	</body>
+</html>

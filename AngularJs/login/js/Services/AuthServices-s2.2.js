@@ -14,7 +14,8 @@ authFnc.$inject=['$http','$q','$log','$window'];
 		 	'role':'none'};
 
 		 var fncContainer={
-		 localAuthAsk:localAuthAsk
+		 localAuthAsk:localAuthAsk,
+		 authAsk:authAsk
 	};
 
 	function checkUser(userlogin,userpwd){

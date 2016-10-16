@@ -31,7 +31,13 @@ function loginCrtFnt($scope, $log,auth,$window){
 		 			$log.info(payload.validAuth);
 		 			$log.info(payload.role);
 
-		 			$window.location.href=payload.role + ".html";
+		 			if(payload.role.toUpperCase() == "WATCHER"){
+		 				$window.location.href="Watcher.html";
+		 			}
+		 			if (payload.role.toUpperCase() == "ADMIN") {
+		 				$window.location.href="Watcher.html";
+		 			}
+		 			
 
  				},
  				function(errorPayload) {

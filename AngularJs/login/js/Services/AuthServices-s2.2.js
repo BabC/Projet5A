@@ -57,7 +57,7 @@ authFnc.$inject=['$http','$q','$log','$window'];
  	function authAsk(login,pwd){
  		var deferred = $q.defer();
 
- 		$http.post('/fakeauthwatcher',{'login':login,'pwd':pwd}).
+ 		$http.post('http://localhost:8080/FrontAuthWatcherWebService/rest/WatchAuth',{'user':login,'password':pwd}).
  		success(function(data, status, headers, config) {
  			deferred.resolve(data);
  		}).

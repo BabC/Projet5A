@@ -66,9 +66,15 @@
                         <input type="text" ng-model="currentSlide.title" class="form-control" id="currentSlideTitle">
                         <label for="currentSlideText">Text</label>
                         <textarea rows="5" type="text" ng-model="currentSlide.txt"  class="form-control" id="currentSlideText"></textarea>
-                    </div>  
-                    <div ng-drop="true" ng-drop-success="onDropComplete($data,$event)"  style="min-height: 100px;min-width: 100px;">
-                        <img ng-src="{{contentMap.payload[currentSlide.contentMap[1]].src}}" alt="{{contentMap.payload[currentSlide.contentMap[1]].title}}" class="img-responsive">    
+                    </div> 
+                    
+                       <div  ng-drop="true" ng-drop-success="onDropComplete($data,$event)"   style="min-height: 100px;min-width: 100px;">
+                        <img  ng-if="!isSlidContentEmpty(currentSlide)" ng-src="{{contentMap.payload[currentSlide.contentMap[1]].src}}" alt="{{contentMap.payload[currentSlide.contentMap[1]].title}}" class="img-responsive">    
+                    </div>
+                    
+                   
+                    <div ng-if="isSlidContentEmpty(currentSlide)">
+                      <h1> No Image Set</h1>
                     </div>
                 </div>
                 

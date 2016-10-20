@@ -76,9 +76,16 @@ function eventCrtFnt($scope, $log, $window, factory, comm){
     }
     
     $scope.isSlidContentEmpty=function(slid){
-        if(slid.contentMap[1]== undefined){
+      
+        console.log("on passe dans istruc : " + (slid == undefined));
+        if(slid == undefined){
+          
             return true;
         }
+        if(slid.contentMap[1]== undefined){
+          return true;
+        }
+        
         return false
     }    
             

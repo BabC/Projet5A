@@ -11,15 +11,15 @@ function commFnc($http,$q,factory){
    
  function loadImages(presName,presId){
  	var deferred=$q.defer();
-  /*$http.get("/resource_list/urlnodejs").
+  $http.get("/resource_list/urlnodejs").
       success(function(data, status, headers, config) {
         deferred.resolve(data);
       }).
       error(function(data, status, headers, config) {
         deferred.reject(status);
-      });*/
+      });
 
-    setInterval(function(presName,presId) {      
+    /*setInterval(function(presName,presId) {      
       		var payload = {};
           
           var lContent1 = factory.contentCreation('title',"vid","./img/1.jpg");
@@ -39,7 +39,7 @@ function commFnc($http,$q,factory){
 			     deferred.resolve(payload);	
     
       	clearInterval(this);
-    },2000,presName,presId);  
+    },2000,presName,presId);  */
   
     return deferred.promise;
   };

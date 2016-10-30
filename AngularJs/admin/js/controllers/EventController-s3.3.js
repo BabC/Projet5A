@@ -1,8 +1,8 @@
 angular.module('adminApp').controller('eventCtrl',eventCrtFnt);
 
-eventCrtFnt.$inject=['$scope','$log','$window','factory','comm'];
+eventCrtFnt.$inject=['$scope','$log','$window','$interval','factory','comm'];
 
-function eventCrtFnt($scope, $log, $window, factory, comm){
+function eventCrtFnt($scope, $log, $window,$interval, factory, comm){
        
     
     $scope.currentPresenation=factory.presentationCreation("template_pres","description of the template présentation");
@@ -13,6 +13,8 @@ function eventCrtFnt($scope, $log, $window, factory, comm){
     
     $scope.presentationMap={};
     $scope.presentationMap.payload="";
+    $scope.Timer = null;
+
     
     var available_content=comm.loadImages('test','test');
        available_content.then(
@@ -24,7 +26,7 @@ function eventCrtFnt($scope, $log, $window, factory, comm){
               $log.error('failure loading movie', errorPayload);
           });
     
-    var firstPresentation=comm.loadPres('test','test');
+    /*var firstPresentation=comm.loadPres('test','test');
        firstPresentation.then(
           function(payload) { 
               $scope.presentationMap.payload= payload;
@@ -36,7 +38,7 @@ function eventCrtFnt($scope, $log, $window, factory, comm){
           },
           function(errorPayload) {
               $log.error('failure loading movie', errorPayload);
-          });
+          });*/
     
     
     $scope.newSlide=function(){
@@ -77,7 +79,6 @@ function eventCrtFnt($scope, $log, $window, factory, comm){
     
     $scope.isSlidContentEmpty=function(slid){
       
-        console.log("on passe dans istruc : " + (slid == undefined));
         if(slid == undefined){
           
             return true;
@@ -87,8 +88,98 @@ function eventCrtFnt($scope, $log, $window, factory, comm){
         }
         
         return false
+    }
+    $scope.getCurrentKeyinSlidArray=function() {
+      var currentKeyInSlidArray = 0;
+      var currentId= $scope.currentSlide.id;
+      var slidArrayLenght = $scope.currentPresenation.slidArray.length;
+        for (var i =0 ; i< slidArrayLenght ; i++) {
+          if ($scope.currentPresenation.slidArray[i].id == currentId) {
+              currentKeyInSlidArray = i ;
+          }
+        }
+        return currentKeyInSlidArray;
+    } 
+
+    $scope.stepBackward = function(){
+      var slidArrayLenght = $scope.currentPresenation.slidArray.length;
+      var currentSlidPosition = $scope.getCurrentKeyinSlidArray();
+       if(currentSlidPosition != 0) {
+          $scope.currentSlide = $scope.currentPresenation.slidArray[0];
+        }
+    }
+
+     $scope.stepForward = function(){
+      var slidArrayLenght = $scope.currentPresenation.slidArray.length;
+      var currentSlidPosition = $scope.getCurrentKeyinSlidArray();
+       if(currentSlidPosition != slidArrayLenght -1) {
+          $scope.currentSlide = $scope.currentPresenation.slidArray[slidArrayLenght -1];
+        }
     }    
-            
-    
+
+    $scope.forward=function(){
+        
+        var currentId= $scope.currentSlide.id;
+        var slidArrayLenght = $scope.currentPresenation.slidArray.length;
+        var currentSlidPosition = $scope.getCurrentKeyinSlidArray();
+        
+        if(currentSlidPosition != (slidArrayLenght - 1)) {
+          var nextSlidKey = currentSlidPosition + 1;
+          $scope.currentSlide = $scope.currentPresenation.slidArray[nextSlidKey];
+        }
+        
+        
+        console.log(" on a changé de slide" );
+        
+       // emit.io.emitNext();
+        
+    }; 
+
+    $scope.backward=function(){
+        
+        var currentId= $scope.currentSlide.id;
+        var slidArrayLenght = $scope.currentPresenation.slidArray.length;
+
+        var currentSlidPosition = $scope.getCurrentKeyinSlidArray();
+        
+        if(currentSlidPosition != 0){
+          var previousKey = currentSlidPosition - 1;
+          $scope.currentSlide = $scope.currentPresenation.slidArray[previousKey];
+        }
+        
+        
+        console.log(" on a changé de slide" );
+        //comm.io.emitPrev();
+        
+    };
+
+    $scope.begin=function(){
+      //Initialize the Timer to run every 1000 milliseconds i.e. one second.
+
+      var slidArrayLenght = $scope.currentPresenation.slidArray.length;
+      
+
+      if($scope.getCurrentKeyinSlidArray() < slidArrayLenght -1) {
+        $scope.Timer = $interval(function () {
+        $scope.forward();
+        if ($scope.getCurrentKeyinSlidArray() == slidArrayLenght -1){
+          $scope.pause();
+        }
+      }, 3000);
+      }
+      else {
+        $scope.pause();
+      }
+
+    //comm.io.emitBegin();
+  };
+
+  $scope.pause=function(){
+    if (angular.isDefined($scope.Timer)) {
+        $interval.cancel($scope.Timer);
+    }
+      console.log(" on stop le player" );         
+  };
+           
     
 }

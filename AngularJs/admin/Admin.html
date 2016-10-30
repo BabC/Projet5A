@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="adminApp" ng-controller="eventCtrl">
+<html lang="en" ng-app="adminApp" ng-controller="eventCtrl" ng-controller="playerCtrl" >
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +17,7 @@
         <div class="row container-fluid fullScreenHeight ">
             
 <!-- *************   LEFT PANEL  *************-->
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 zeroRef fullScreenHeight divOverflow"  > 
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 zeroRef fullScreenHeight divOverflow"> 
                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
                      <div class="btn-group" role="group" aria-label="...">
                         <button type="button" class="btn btn-default">
@@ -48,15 +48,15 @@
                 </div>
             </div>
 <!-- *************   CENTER PANEL  *************-->
-            <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 zeroRef fullScreenHeight" > 
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
-                   <div class="btn-group" role="group" aria-label="..." >
-                       <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></button>
-                       <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-backward" aria-hidden="true"></span></button>
-                       <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
-                       <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-pause" aria-hidden="true"></span></button>
-                       <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-forward" aria-hidden="true"></span></button>
-                       <button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></button> 
+            <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 zeroRef fullScreenHeight"  > 
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" > 
+                   <div class="btn-group" role="group" aria-label="..."  >
+                       <button type="button" class="btn btn-default" ng-click="stepBackward()" ><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></button>
+                       <button type="button" class="btn btn-default" ng-click="backward()"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span></button>
+                       <button type="button" class="btn btn-default"  ng-click="begin()"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+                       <button type="button" class="btn btn-default" ng-click="pause()" ><span class="glyphicon glyphicon-pause" aria-hidden="true"></span></button>
+                       <button type="button" class="btn btn-default" ng-click="forward()" ><span class="glyphicon glyphicon-forward" aria-hidden="true"></span></button>
+                       <button type="button" class="btn btn-default" ng-click="stepForward()" ><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></button> 
                     </div>
                 </div>
                 
@@ -105,7 +105,8 @@
     
       
       
-    <script src="lib/js/jquery-1.11.3.min.js"></script>    
+    <script src="lib/js/jquery-1.11.3.min.js"></script>   
+    <script type="text/javascript" src="lib/js/socket.io.js"></script> 
     <script src="lib/js/dropzone.js"></script>
       
       
@@ -122,7 +123,6 @@
   <script src="js/controllers/PlayerController-s3.3.js"></script>
   <script src="js/controllers/DropZoneController.js"></script>
       
-      
-<!--  <script type="text/javascript" src="/socket.io/socket.io.js"></script>-->
+
   </body>
 </html>

@@ -101,7 +101,7 @@ function eventCrtFnt($scope, $log, $window,$interval, factory, comm){
         return currentKeyInSlidArray;
     } 
 
-    $scope.stepBackward = function(){
+    $scope.begin = function(){
       var slidArrayLenght = $scope.currentPresenation.slidArray.length;
       var currentSlidPosition = $scope.getCurrentKeyinSlidArray();
        if(currentSlidPosition != 0) {
@@ -109,7 +109,7 @@ function eventCrtFnt($scope, $log, $window,$interval, factory, comm){
         }
     }
 
-     $scope.stepForward = function(){
+     $scope.end = function(){
       var slidArrayLenght = $scope.currentPresenation.slidArray.length;
       var currentSlidPosition = $scope.getCurrentKeyinSlidArray();
        if(currentSlidPosition != slidArrayLenght -1) {
@@ -153,7 +153,7 @@ function eventCrtFnt($scope, $log, $window,$interval, factory, comm){
         
     };
 
-    $scope.begin=function(){
+    $scope.play=function(){
       //Initialize the Timer to run every 1000 milliseconds i.e. one second.
 
       var slidArrayLenght = $scope.currentPresenation.slidArray.length;

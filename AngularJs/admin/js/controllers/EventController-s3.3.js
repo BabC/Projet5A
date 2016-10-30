@@ -13,7 +13,7 @@ function eventCrtFnt($scope, $log, $window,$interval, factory, comm){
     
     $scope.presentationMap={};
     $scope.presentationMap.payload="";
-    $scope.Timer = null;
+    
 
     
     var available_content=comm.loadImages('test','test');
@@ -55,6 +55,10 @@ function eventCrtFnt($scope, $log, $window,$interval, factory, comm){
         $scope.currentSlide=slide;
         
     }
+
+    $scope.$watch('currentSlide', function(newValue, oldValue) {
+      $scope.selectCurrentSlid(newValue);
+    });
     
     
     $scope.onDragComplete=function(data,evt){
@@ -89,7 +93,7 @@ function eventCrtFnt($scope, $log, $window,$interval, factory, comm){
         
         return false
     }
-    $scope.getCurrentKeyinSlidArray=function() {
+    /*$scope.getCurrentKeyinSlidArray=function() {
       var currentKeyInSlidArray = 0;
       var currentId= $scope.currentSlide.id;
       var slidArrayLenght = $scope.currentPresenation.slidArray.length;
@@ -99,25 +103,25 @@ function eventCrtFnt($scope, $log, $window,$interval, factory, comm){
           }
         }
         return currentKeyInSlidArray;
-    } 
+    } */
 
-    $scope.begin = function(){
+    /*$scope.begin = function(){
       var slidArrayLenght = $scope.currentPresenation.slidArray.length;
       var currentSlidPosition = $scope.getCurrentKeyinSlidArray();
        if(currentSlidPosition != 0) {
           $scope.currentSlide = $scope.currentPresenation.slidArray[0];
         }
-    }
+    };*/
 
-     $scope.end = function(){
+    /* $scope.end = function(){
       var slidArrayLenght = $scope.currentPresenation.slidArray.length;
       var currentSlidPosition = $scope.getCurrentKeyinSlidArray();
        if(currentSlidPosition != slidArrayLenght -1) {
           $scope.currentSlide = $scope.currentPresenation.slidArray[slidArrayLenght -1];
         }
-    }    
+    };  */  
 
-    $scope.forward=function(){
+    /*$scope.forward=function(){
         
         var currentId= $scope.currentSlide.id;
         var slidArrayLenght = $scope.currentPresenation.slidArray.length;
@@ -133,9 +137,9 @@ function eventCrtFnt($scope, $log, $window,$interval, factory, comm){
         
        // emit.io.emitNext();
         
-    }; 
+    }; */
 
-    $scope.backward=function(){
+    /*$scope.backward=function(){
         
         var currentId= $scope.currentSlide.id;
         var slidArrayLenght = $scope.currentPresenation.slidArray.length;
@@ -151,9 +155,9 @@ function eventCrtFnt($scope, $log, $window,$interval, factory, comm){
         console.log(" on a changé de slide" );
         //comm.io.emitPrev();
         
-    };
+    };*/
 
-    $scope.play=function(){
+    /*$scope.play=function(){
       //Initialize the Timer to run every 1000 milliseconds i.e. one second.
 
       var slidArrayLenght = $scope.currentPresenation.slidArray.length;
@@ -172,14 +176,14 @@ function eventCrtFnt($scope, $log, $window,$interval, factory, comm){
       }
 
     //comm.io.emitBegin();
-  };
+  };*/
 
-  $scope.pause=function(){
+  /*$scope.pause=function(){
     if (angular.isDefined($scope.Timer)) {
         $interval.cancel($scope.Timer);
     }
       console.log(" on stop le player" );         
-  };
+  };*/
            
     
 }

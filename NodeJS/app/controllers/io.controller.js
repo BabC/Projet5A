@@ -3,6 +3,9 @@ var http 	= require('http');
 var isNull 	= require('lodash.isnull');
 var SlidModel 	= require("./../models/slid.model.js");
 
+var id_pres;
+
+
 var map = new Map();
 
 var IOController = function() {}
@@ -23,12 +26,13 @@ IOController.listen = function(httpServer) {
     socket.on('slidEvent', function (jsonObject) {
       
       var cmdSent;
-      var id_pres;
       
       for ( lKey in jsonObject) {   //get value of the key 'id'
 	  if(lKey == "CMD")
 	  {
 	    cmdSent = jsonObject[lKey]; 
+	   	console.log("COMMANDE" + cmdSent);
+
 	    break;
 	  }
       }
@@ -45,17 +49,18 @@ IOController.listen = function(httpServer) {
 	} 
       }
       
-      if((!isNull(id_pres) || id_pres === "null") && cmdSent != "PAUSE")
+      if((!isNull(id_pres) || id_pres != "undifined") && cmdSent != "PAUSE")
       {
 	SlidModel.read(id_pres, function(err,slid){
 
-
+		/*
 	  slid.src = "/slid/:" + slid.id;
   
 	  for(var lKey in map)
 	  {
 	    map[lKey].emit('slidEvent', sendBack);
 	  }
+	  */
 	})
       }
     }); 

@@ -1,33 +1,35 @@
 0 info it worked if it ends with ok
-1 verbose cli [ 'node',
-1 verbose cli   '/home/sam/InstallationMajSem9/nodejs/bin/npm',
+1 verbose cli [ '/home/ubuntu/opt/node-v6.7.0-linux-x64/bin/node',
+1 verbose cli   '/home/ubuntu/opt/node-v6.7.0-linux-x64/bin/npm',
 1 verbose cli   'start' ]
-2 info using npm@3.10.8
-3 info using node@v0.12.7
+2 info using npm@3.10.3
+3 info using node@v6.7.0
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
 5 info lifecycle tp-nodejs@1.0.0~prestart: tp-nodejs@1.0.0
 6 silly lifecycle tp-nodejs@1.0.0~prestart: no script for prestart, continuing
 7 info lifecycle tp-nodejs@1.0.0~start: tp-nodejs@1.0.0
 8 verbose lifecycle tp-nodejs@1.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle tp-nodejs@1.0.0~start: PATH: /home/sam/InstallationMajSem9/nodejs/lib/node_modules/npm/bin/node-gyp-bin:/home/sam/Documents/Maj_Sem9/NodeJS/tp/node_modules/.bin:/home/sam/InstallationMajSem9/jdk1.8.0_101/bin:/home/sam/InstallationMajSem9/apache-maven-3.3.9/bin:/home/sam/InstallationMajSem9/nodejs/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-10 verbose lifecycle tp-nodejs@1.0.0~start: CWD: /home/sam/Documents/Maj_Sem9/NodeJS/tp
+9 verbose lifecycle tp-nodejs@1.0.0~start: PATH: /home/ubuntu/opt/node-v6.7.0-linux-x64/lib/node_modules/npm/bin/node-gyp-bin:/home/ubuntu/Desktop/Projet5A/NodeJS/node_modules/.bin:/home/ubuntu/opt/node-v6.7.0-linux-x64/bin:/home/ubuntu/opt/jdk1.8.0_101/bin:/home/ubuntu/opt/apache-maven-3.3.9/bin:/home/ubuntu/opt/node-v6.7.0-linux-x64/bin:/home/ubuntu/bin:/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+10 verbose lifecycle tp-nodejs@1.0.0~start: CWD: /home/ubuntu/Desktop/Projet5A/NodeJS
 11 silly lifecycle tp-nodejs@1.0.0~start: Args: [ '-c', 'node app.js' ]
 12 silly lifecycle tp-nodejs@1.0.0~start: Returned: code: 1  signal: null
 13 info lifecycle tp-nodejs@1.0.0~start: Failed to exec start script
 14 verbose stack Error: tp-nodejs@1.0.0 start: `node app.js`
 14 verbose stack Exit status 1
-14 verbose stack     at EventEmitter.<anonymous> (/home/sam/InstallationMajSem9/nodejs/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
-14 verbose stack     at EventEmitter.emit (events.js:110:17)
-14 verbose stack     at ChildProcess.<anonymous> (/home/sam/InstallationMajSem9/nodejs/lib/node_modules/npm/lib/utils/spawn.js:40:14)
-14 verbose stack     at ChildProcess.emit (events.js:110:17)
-14 verbose stack     at maybeClose (child_process.js:1015:16)
-14 verbose stack     at Process.ChildProcess._handle.onexit (child_process.js:1087:5)
+14 verbose stack     at EventEmitter.<anonymous> (/home/ubuntu/opt/node-v6.7.0-linux-x64/lib/node_modules/npm/lib/utils/lifecycle.js:242:16)
+14 verbose stack     at emitTwo (events.js:106:13)
+14 verbose stack     at EventEmitter.emit (events.js:191:7)
+14 verbose stack     at ChildProcess.<anonymous> (/home/ubuntu/opt/node-v6.7.0-linux-x64/lib/node_modules/npm/lib/utils/spawn.js:40:14)
+14 verbose stack     at emitTwo (events.js:106:13)
+14 verbose stack     at ChildProcess.emit (events.js:191:7)
+14 verbose stack     at maybeClose (internal/child_process.js:877:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 15 verbose pkgid tp-nodejs@1.0.0
-16 verbose cwd /home/sam/Documents/Maj_Sem9/NodeJS/tp
-17 error Linux 3.13.0-43-generic
-18 error argv "node" "/home/sam/InstallationMajSem9/nodejs/bin/npm" "start"
-19 error node v0.12.7
-20 error npm  v3.10.8
+16 verbose cwd /home/ubuntu/Desktop/Projet5A/NodeJS
+17 error Linux 4.4.0-42-generic
+18 error argv "/home/ubuntu/opt/node-v6.7.0-linux-x64/bin/node" "/home/ubuntu/opt/node-v6.7.0-linux-x64/bin/npm" "start"
+19 error node v6.7.0
+20 error npm  v3.10.3
 21 error code ELIFECYCLE
 22 error tp-nodejs@1.0.0 start: `node app.js`
 22 error Exit status 1

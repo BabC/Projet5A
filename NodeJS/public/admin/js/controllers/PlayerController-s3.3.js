@@ -40,6 +40,11 @@ function playerCrtFnt($scope, $log, $window,$interval, factory, comm){
         }
         console.log(" on stop le player" );         
         
+      var uuid=$scope.currentPresenation.id;
+      var socket = comm.io.socketConnection($scope, 0);
+      comm.io.emitPause(socket);
+      console.log("commande envoyee via socket");
+
         //comm.io.emitPause();
         
     };
@@ -65,8 +70,10 @@ function playerCrtFnt($scope, $log, $window,$interval, factory, comm){
           $scope.currentSlide = $scope.currentPresenation.slidArray[previousKey];
         }        
         
-        console.log(" on a changé de slide" );
-        comm.io.emitPrev();
+      var uuid=$scope.currentPresenation.id;
+      var socket = comm.io.socketConnection($scope, 0);
+      comm.io.emitPrev(socket);
+      console.log("commande envoyee via socket");
         
     };
 
@@ -83,10 +90,8 @@ function playerCrtFnt($scope, $log, $window,$interval, factory, comm){
         }
         
         
-        console.log("tentative de connexion" );
-
-        var uuid=$scope.currentPresenation.id;
-      var socket = comm.io.socketConnection($scope, 12);
+      var uuid=$scope.currentPresenation.id;
+      var socket = comm.io.socketConnection($scope, 0);
       comm.io.emitNext(socket);
       console.log("commande envoyee via socket");
         
@@ -106,7 +111,10 @@ function playerCrtFnt($scope, $log, $window,$interval, factory, comm){
       else {
         $scope.pause();
       }
-      comm.io.emitStart();
+      var uuid=$scope.currentPresenation.id;
+      var socket = comm.io.socketConnection($scope, 0);
+      comm.io.emitStart(socket,1);
+      console.log("commande envoyee via socket");
     };
 
     

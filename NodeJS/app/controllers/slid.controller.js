@@ -2,8 +2,8 @@
 
 var SlidModel 	= require("./../models/slid.model.js");
 var path 	= require('path');
-var CONFIG 	= require("../../config.json");
 var Fs 		= require("fs");
+var CONFIG 	= require("./../../config.json");
 
 var SlidController = function() {}
 
@@ -52,9 +52,7 @@ SlidController.list = function(data, callback) {
 	      for(var j=0; j<lArrayID.length; j++)
 	      {
 		lObj[lArrayID[j]] = lArrayContent[j];
-	      }
-
-	      
+	      }     
 	      callback(lObj);      
       });
     
@@ -85,19 +83,35 @@ SlidController.create = function(pId, pType, pTitle, pFileName, pData, callback)
 
 SlidController.read = function(pId, pIsJson, callback) {
   
-  
-  SlidModel.read(pId,function(data,err){
+  SlidModel.read(pId,function(err,data){
     if(err)
     {
       callback(err);
+      return;
     }
     else
     {
-      data
+      if(pIsJson)
+      {
+	callback(data);
+	return;
+      }
+      else
+      {
+	var lSlid = new SlidModel();
+
+	lSlid.id 	= data["id"];
+	lSlid.type 	= data["type"];
+	lSlid.title 	= data["title"];
+	lSlid.fileName 	= data["fileName"];
+	lSlid.setData(data["data"]);
+	console.info("type" + data["type"]);
+	
+	callback(lSlid);
+	return;
+      }
     }
   });
-  
-  
 };
 
 

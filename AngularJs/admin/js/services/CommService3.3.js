@@ -76,7 +76,7 @@ function commFnc($http,$q,factory){
 
   comm.io.socketConnection=function(scope,uuid){
 
-   var socket = io.connect();
+   var socket = io.connect('http://localhost:1337');
    comm.io.uuid=uuid;
    socket.on('connection', function () {
      socket.emit('data_comm',{'id':comm.io.uuid});

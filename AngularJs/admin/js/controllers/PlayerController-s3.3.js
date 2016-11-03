@@ -55,7 +55,7 @@ function playerCrtFnt($scope, $log, $window,$interval, factory, comm){
 
     $scope.backward=function(){
 
-        var currentId= $scope.currentSlide.id;
+        
         var slidArrayLenght = $scope.currentPresenation.slidArray.length;
 
         var currentSlidPosition = $scope.getCurrentKeyinSlidArray();
@@ -72,7 +72,7 @@ function playerCrtFnt($scope, $log, $window,$interval, factory, comm){
 
     $scope.forward=function(){
         
-        var currentId= $scope.currentSlide.id;
+        
         var slidArrayLenght = $scope.currentPresenation.slidArray.length;
         var currentSlidPosition = $scope.getCurrentKeyinSlidArray();
         
@@ -83,9 +83,12 @@ function playerCrtFnt($scope, $log, $window,$interval, factory, comm){
         }
         
         
-        console.log(" on a changé de slide" );
-        
-       comm.io.emitNext();
+        console.log("tentative de connexion" );
+
+        var uuid=$scope.currentPresenation.id;
+      comm.io.socketConnection($scope, uuid);
+      comm.io.emitNext();
+      concole.log("commande envoyee via socket");
         
     };
 

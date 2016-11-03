@@ -105,6 +105,6 @@ function playerCrtFnt($scope, $log, $window,$interval, factory, comm){
       }
     }
 
-    comm.io.emitPlay();
+    comm.io.emitStart();
 
 }

@@ -28,7 +28,7 @@ public class UserDAO implements IUserDAO {
 			userE = (UserEntity) em.createQuery(qry).setParameter("login", userM.getUser())
 					.setParameter("password", userM.getPassword()).getSingleResult();
 		} catch (NoResultException e) {
-			//e.printStackTrace();
+			log.warn(e.getMessage());
 		}
 
 		return userE;

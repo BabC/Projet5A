@@ -1,0 +1,23 @@
+{
+  "name": "tp-nodejs",
+  "version": "1.0.0",
+  "description": "tp nodejs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "private": true,
+  "keywords": [
+    "cpe"
+  ],
+  "author": "SamC",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "jsonfile": "^2.4.0",
+    "lodash.isnull": "^3.0.0",
+    "multer": "^1.2.0"
+  }
+}

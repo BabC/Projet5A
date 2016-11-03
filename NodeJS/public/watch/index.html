@@ -1,0 +1,20 @@
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<p>HELLO WATCH</p>
+
+<script>
+var socket = io.connect('http://localhost:1337');
+
+
+socket.on('connection', function (message){
+
+  var id = socket.io.engine.id;
+  id = String(id);
+  socket.emit('data_comm', id);
+  
+  socket.on('connection', function (message){
+  
+  
+  });
+});
+
+</script> 

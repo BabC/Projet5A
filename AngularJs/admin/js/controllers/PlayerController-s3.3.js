@@ -29,7 +29,7 @@ function playerCrtFnt($scope, $log, $window,$interval, factory, comm){
           $scope.currentSlide = $scope.currentPresenation.slidArray[0];
         }
 	
-		//comm.io.emitBegin();
+		comm.io.emitBegin();
 
 	};
 
@@ -50,7 +50,7 @@ function playerCrtFnt($scope, $log, $window,$interval, factory, comm){
         if(currentSlidPosition != slidArrayLenght -1) {
           $scope.currentSlide = $scope.currentPresenation.slidArray[slidArrayLenght -1];
         }
-        //comm.io.emitEnd();
+        comm.io.emitEnd();
     };
 
     $scope.backward=function(){
@@ -66,7 +66,7 @@ function playerCrtFnt($scope, $log, $window,$interval, factory, comm){
         }        
         
         console.log(" on a changé de slide" );
-        //comm.io.emitPrev();
+        comm.io.emitPrev();
         
     };
 
@@ -85,7 +85,7 @@ function playerCrtFnt($scope, $log, $window,$interval, factory, comm){
         
         console.log(" on a changé de slide" );
         
-       // emit.io.emitNext();
+       comm.io.emitNext();
         
     };
 
@@ -105,6 +105,6 @@ function playerCrtFnt($scope, $log, $window,$interval, factory, comm){
       }
     }
 
-    //comm.io.emitPlay();
+    comm.io.emitPlay();
 
 }

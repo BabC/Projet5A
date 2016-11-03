@@ -49,6 +49,7 @@ IOController.listen = function(httpServer) {
       {
 	SlidModel.read(id_pres, function(err,slid){
 
+
 	  slid.src = "/slid/:" + slid.id;
   
 	  for(var lKey in map)

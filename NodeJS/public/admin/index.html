@@ -1,1 +1,31 @@
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <p>HELLO ADMIN</p>
+
+<script>
+
+var socket = io.connect('http://localhost:1337');
+
+/*
+var JsonObject = {
+    shit:'go to hell',
+    id: 'Hello world!',
+    fck:'fcked up again'
+} */
+
+var JsonCMD = {
+    CMD:'START',
+    PRES_ID: 789
+}
+
+
+socket.on('connection', function (message){
+
+  var id = socket.io.engine.id;
+  id = String(id);
+  socket.emit('data_comm', id);
+  socket.emit('slidEvent', JsonCMD);  
+});
+
+
+
+</script> 

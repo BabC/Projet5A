@@ -1,12 +1,11 @@
 "use strict";
 
-var Fs = require("fs");	
-var path = require('path');
-var CONFIG =  require("../../config.json");
-var jsonfile = require('jsonfile');
-var isNull = require('lodash.isnull');
-
-process.env.CONFIG = JSON.stringify(CONFIG);
+var Fs 		= require("fs");	
+var path 	= require('path');
+var CONFIG 	= require("./../../config.json");
+var jsonfile 	= require('jsonfile');
+var isNull 	= require('lodash.isnull');
+var utils 	= require("./../utils/utils.js");
 
 // Constructeur
 function SlidModel(pType, pId, pTitle, pFileName) {
@@ -33,183 +32,204 @@ function SlidModel(pType, pId, pTitle, pFileName) {
 
 }
 
+/************************************************************************************************/
+
 // Static methods
 SlidModel.create = function(slid, callback) {
-    SlidModel.checkId(slid.id, function(err) {
-	  if (err) {
-	      var lErr = new Error("Erreur: ID not good");
-	      callback(lErr);
-	      return;
-	  }
-	  else{
-    SlidModel.checkSlide(slid, function(err) {
-	  if (err) {
-	      var lErr = new Error("Erreur: certains paramètres sont null");
-	      callback(lErr);
-	      return;
-	  }
-	  else{
-	
-	      var lDossier = path.join(CONFIG.contentDirectory, "/");
-	    
-	    //Step 1: stock slide.data in slide.file  
-	      
-	      var lData 	= slid.getData();
-	      var lNameData 	= slid.fileName;
-	      var lFileData 	= lDossier + lNameData; 
-	      
-	      Fs.writeFile(lFileData, lData, 'utf8', function(err){
-		if(err)
-		{
-		  var lErr = new Error("Erreur: certains paramètres sont null" + err);
-		  callback(lErr);
-		  return;
-		}
-	      });
-	      
-	    //Step 2:  stock meta data in content_dir
-	      
-	      var lIdSlid = slid.id;
-	      var lFileToSave = lDossier + lIdSlid + ".meta.json";
-	      var lSaveSlid = JSON.stringify(slid);
-	      
-	      Fs.writeFile(lFileToSave, lSaveSlid, 'utf8'); //save json object
-	      callback();
-	   }
-      
-    });
-    }});
-};
-
-SlidModel.read = function(id, callback) {
+  SlidModel.checkId(slid.id, function(err) {
+    if (err) {
+      var lErr = new Error("Erreur: ID not good");
+      callback(lErr);
+      return;
+    }
     
-    SlidModel.checkId(id, function(err) {
-	if (err) {
-	    var lErr = new Error("Erreur: certains paramètres sont null");
+    SlidModel.checkSlide(slid, function(err) {
+      if (err) {
+	var lErr = new Error("Erreur: certains paramètres sont null");
+	callback(lErr);
+	return;
+      }
+      
+      var lFileData = path.join(CONFIG.contentDirectory,slid.fileName);
+      var lData = slid.getData();
+      
+      //Step 1: stock slide.data in slide.file  
+      
+      Fs.writeFile(lFileData, lData, 'utf8', function(err){
+	if(err)
+	{
+	  var lErr = new Error("Erreur: ecriture fichier fileName" + err);
+	  callback(lErr);
+	  return;
+	}
+	
+	var lFileName = slid.id + ".meta.json";
+	
+	//Step 2:  stock meta data in content_dir	
+	
+	var lFileToSave = path.join(CONFIG.contentDirectory,lFileName);
+	var lSaveSlid = JSON.stringify(slid);
+	
+	Fs.writeFile(lFileToSave, lSaveSlid, 'utf8',function(err) {
+	  if (err) {
+	    var lErr = new Error("Erreur: ecriture fichier meta");
 	    callback(lErr);
 	    return;
-	}
-      else
-      {
-
-	var lDossier = path.join(CONFIG.contentDirectory, "/");
-	var lFileToRead = lDossier + id + ".meta.json";
-	
-	jsonfile.readFile(lFileToRead, callback);
-      }
-    });
-};
-  
-SlidModel.update = function(slid, callback) {
-    SlidModel.checkId(slid.id, function(err) {
-	  if (err) {
-	      var lErr = new Error("Erreur: ID not good");
-	      callback(lErr);
-	      return;
 	  }
-	  else{
-  SlidModel.checkSlide(slid, function(err) {
-      if (err) {
-	 var lErr = new Error("Erreur: certains paramètres sont null");
-	 callback(lErr);
-	 return;
-      }
-      else
-      {
-    
-	var lIdString = slid.id;
-	var lDossier = path.join(CONFIG.contentDirectory);
+	  callback();
+	}); //save json object
 	
-	var lJsonFileToCheck = lIdString + ".meta.json";
-	var lTxtFileToCheck = lIdString + ".txt";
-	
-	var lFoundTxt = false;
-	var lFoundJson = false;
-	
-	Fs.readdir(lDossier, function(pErr, pList) 
-	{
-		for (var i=0; i<pList.length; i++) 
-		{
-			
-			var lResultFiles = path.basename(pList[i]);
-			
-			
-			if(lResultFiles == lJsonFileToCheck)
-			{ 
-			  lFoundJson = true;	    
-			}
-			
-			if(lResultFiles == lTxtFileToCheck)
-			{ 
-			  lFoundTxt = true;	    
-			}
-		}	  
-		
-		if(lFoundJson && lFoundTxt)
-		{
-		  var lSlidData = slid.data;
-		  if(lSlidData.length > 0)
-		  {
-		    SlidModel.create(slid, function(err) {
-				if (err) {
-					var lErr = new Error("Erreur: creation erreur pour update" + err);
-					callback(lErr);
-					return;
-				}
-			});
-		  }
-		  else
-		  {
-		    var lIdSlid = slid.id;
-		    var lFileToSave = lDossier + lIdSlid + ".meta.json";
-		    var lSaveSlid = JSON.stringify(slid);
-		    
-		    Fs.writeFile(lFileToSave, lSaveSlid, 'utf8'); //save json object
-		    
-		  }
-		}
-		else
-		{
-		  var lErr = new Error("Erreur: can't find both files... DSO");
-		  callback(lErr);
-		  return;
-		}
-	});
-	callback();
-      }
+      });
+      
+    });
   });
-	    
-}});
 };
+
+/************************************************************************************************/
+
+SlidModel.read = function(id, callback) {
   
-SlidModel.delete = function(id, callback) {
-   
   SlidModel.checkId(id, function(err) {
     if (err) {
-      
       var lErr = new Error("Erreur: certains paramètres sont null");
       callback(lErr);
       return;
     }
-    else{
-	var lDossier = path.join(CONFIG.contentDirectory);
-	
-	//Step 1: delete slide.file  
+    var lFileToReadName = id + ".meta.json";
+    var lFileToRead = path.join(CONFIG.contentDirectory, lFileToReadName );
+    
+    jsonfile.readFile(lFileToRead, callback);
+  });
+};
+  
+/************************************************************************************************/
 
-	  var lNameData 	= id + ".txt";
-	  var lFileData 	= lDossier + lNameData; 
+SlidModel.update = function(slid, callback) {
+  SlidModel.checkId(slid.id, function(err) {
+    if (err) {
+      var lErr = new Error("Erreur: ID not good");
+      callback(lErr);
+      return;
+    }
+    SlidModel.checkSlide(slid, function(err) {
+      if (err) {
+	var lErr = new Error("Erreur: certains paramètres sont null");
+	callback(lErr);
+	return;
+      }
+      var lFileNameParam;
+      var lFile;
+      SlidModel.read(slid.id, function(err, data){
+	if(err)
+	{
+	  var lErr = new Error("Erreur: Cant find meta json file to update");
+	  callback(lErr);
+	  return;
+	}
 	
-	Fs.unlink(lFileData, callback);
+	for (var lKey in data) {   //get value of the key 'fileName'
+	  if(lKey == "fileName")
+	  {
+	    lFileNameParam = data[lKey]; 
+	    break;
+	  }
+	}
+	
+	lFile = path.join(CONFIG.contentDirectory, lFileNameParam );
+	
+	utils.readFileIfExists(lFile,function(err){
+	  if(err)
+	  {
+	    var lErr = new Error("Erreur: cant find file in param (fileName) in metaJson");
+	    callback(lErr);
+	    return;
+	  }
+	  
+	  var lFileMetaName = slid.id + ".meta.json";
+	  var lFileMeta 	= path.join(CONFIG.contentDirectory, lFileMetaName );
+	  var lSaveSlid 	= JSON.stringify(slid);
+	  
+	  Fs.writeFile(lFileMeta, lSaveSlid, 'utf8',function(err){
+	    if(err)
+	    {
+	      var lErr = new Error("Erreur: Cant find meta json file to update");
+	      callback(lErr);
+	      return;
+	    }
+	    
+	    var lSlidData = slid.getData();
+	    
+	    if(lSlidData.length > 0)
+	    {
+	      SlidModel.create(slid, function(err) {
+		if (err) {
+		  var lErr = new Error("Erreur: creation erreur pour update" + err);
+		  callback(lErr);
+		  return;
+		} 
+	      });
+	    }
+	    callback();
+	  }); 
+	});
+      });
+    });
+  });
+};  
+/************************************************************************************************/
+
+SlidModel.delete = function(id, callback) {
+  SlidModel.checkId(id, function(err) {
+    if (err) {
+      var lErr = new Error("Erreur: certains paramètres sont null");
+      callback(lErr);
+      return;
+    }
+    
+    SlidModel.read(id, function(err, data){
+      if(err)
+      {
+	var lErr = new Error("Erreur: certains paramètres sont null");
+	callback(lErr);
+	return;
+      }
+      var lFileParam
+      
+      for (var lKey in data) {   //get value of the key 'id'
+	if(lKey == "fileName")
+	{
+	  lFileParam = data[lKey]; 
+	  break;
+	}
+      }
+
+      var lFileData = utils.getDataFilePath(lFileParam);
+      var lFileJson = utils.getMetaFilePath(id);
+      
+      //Step 1: delete slide.file  
+      
+      Fs.unlink(lFileData, function(err) {
+	if (err) {
+	  
+	  var lErr = new Error("Erreur: certains paramètres sont null");
+	  callback(lErr);
+	  return;
+	  
+	}
 	
 	//Step 2:  delete content_dir
-
-	  var lFileJson = lDossier + id + ".meta.json";
-	  
-	  Fs.unlink(lFileJson, callback); //save json object
-	  callback();  
-    }
+	
+	Fs.unlink(lFileJson, function(err) {
+	  if (err) { 
+	    var lErr = new Error("Erreur: certains paramètres sont null");
+	    callback(lErr);
+	    return;
+	  }
+	  callback();
+	});
+      });
+    });
   });
-    
 };
 
 SlidModel.checkSlide = function(slide, callback) {

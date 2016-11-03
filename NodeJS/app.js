@@ -9,13 +9,14 @@ var Fs 		= require("fs");
 var bodyParser 	= require('body-parser');
 
 //Web Socket
-//var IOController = require("./app/controllers/io.controller.js");
+var IOController = require("./app/controllers/io.controller.js");
+var io = require('socket.io');
 
 //Route
 //Partie 1
 //	var defaultRoute = require("./app/routes/default.route.js");
 //Partie 2
-	var defaultRoute = require("./app/routes/slid.route.js");
+	//var defaultRoute = require("./app/routes/slid.route.js");
 	
 	
 
@@ -55,7 +56,7 @@ app.use(function(request, response, cb){
 });
 */
 
-app.use('/', defaultRoute);
+//app.use('/', defaultRoute);
 
 app.use("/admin", express.static(path.join(__dirname, "public/admin")));
 app.use("/watch", express.static(path.join(__dirname, "public/watch")));
@@ -130,15 +131,12 @@ app.post("/savePres", jsonParser,function(req,res){
 	  break;
 	}
   }
-
-  var lDossier 		= path.join(CONFIG.presentationDirectory);
   
-  var lFileName 	= "/" + lPresIDString + ".pres.json"; 
-  
-  var lPathFileSave 	= lDossier + lFileName;//path + file to save
+  var lFileName 	= lPresIDString + ".pres.json"; 
+  var lDossier 		= path.join(CONFIG.presentationDirectory, lFileName);
       
   var lJsonResult = JSON.stringify(pObj);
-  Fs.writeFile(lPathFileSave, lJsonResult, 'utf8'); //save json object
+  Fs.writeFile(lDossier, lJsonResult, 'utf8'); //save json object
   
   //res.send();
   res.end();
@@ -147,7 +145,15 @@ app.post("/savePres", jsonParser,function(req,res){
 
 
 //Partie WEB SOCKET
-//IOController.listen(server);
+IOController.listen(server);
 
+//var socket = io.connect();
+/*
+io.socket.emit('message', { content: 'Vous êtes bien connecté !', importance: '1' });
+
+io.socket.on('message', function(message) {
+alert('Le serveur a un message pour vous : ' + message);
+}) 
+*/
 
 

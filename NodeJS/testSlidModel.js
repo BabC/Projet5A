@@ -50,7 +50,7 @@ function test3(slid) {
 		if (err) {
 			console.error(err);
 		} else {
-			console.dir(slid);console.log("on fait test 4");
+			console.dir(slid);
 			test4(slid);
 		}
 	});
@@ -63,8 +63,8 @@ function test4(slid) {
 		if (err) {
 			console.error(err);
 		} else {
-			console.dir("Slid supprimee");
-			//testErr(slid);
+			console.dir("Slid supprimee");console.info(process.env.CONFIG);
+			testErr(slid);
 		}
 	});
 
@@ -80,7 +80,7 @@ function testErr(slid) {
 	test1(slid);
 	test2(slid);
 	test3(slid);
-console.dir("last test");
+
 	slid.id = 12;
 	test3(slid);
 }

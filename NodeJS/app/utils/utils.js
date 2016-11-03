@@ -2,7 +2,9 @@
 
 var fs = require("fs");
 var path = require("path");
-var CONFIG = JSON.parse(process.env.CONFIG);
+
+var CONFIG 	= require("./../../config.json");  //env variables !!!!!!!!!!!!!!
+//var CONFIG = JSON.parse(process.env.CONFIG);
 
 module.exports = this;
 
